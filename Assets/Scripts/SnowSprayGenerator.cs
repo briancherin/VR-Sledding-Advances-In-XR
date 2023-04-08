@@ -12,7 +12,7 @@ public class SnowSprayGenerator : MonoBehaviour
 
     public GameObject ground;
     public ParticleSystem snowParticleSystem;
-    private int sprayMultiplier = 1000;
+    private int sprayMultiplier = 500;
 
     private float currentSpeed;
     private bool touchingGround = false;
@@ -29,7 +29,7 @@ public class SnowSprayGenerator : MonoBehaviour
     {
         currentSpeed = gameObject.GetComponent<Rigidbody>().velocity.magnitude;
 
-        Debug.Log("Speed:" + currentSpeed);
+        Debug.Log("Touching ground:" + touchingGround);
 
 
         // If currentSpeed is 0, spray no snow
@@ -39,7 +39,8 @@ public class SnowSprayGenerator : MonoBehaviour
 
         if (touchingGround)
         {
-            spraySnow(currentSpeed);
+            //spraySnow(currentSpeed);
+            spraySnow(1);
         } else
         {
             spraySnow(0);
