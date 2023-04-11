@@ -5445,6 +5445,7 @@ MonoBehaviour:
   - {fileID: 9178047604103340251, guid: e420f646790754f459123df3404ce8a6, type: 3}
   - {fileID: 3386118356341204270, guid: d6cf82c3fa28430499534d8dd25f65d6, type: 3}
   sledArea: {fileID: 1680510047}
+  numTrees: 500
 --- !u!1001 &1168939546
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5715,8 +5716,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1680510047}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.05, y: 0.02, z: 0.13}
-  m_LocalScale: {x: 0.14510001, y: 0.033333335, z: 0.9930918}
+  m_LocalPosition: {x: 0.05, y: 0.27, z: 0.13}
+  m_LocalScale: {x: 0.0502728, y: 0.033333335, z: 0.9930918}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1159673698}
@@ -5730,10 +5731,10 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1680510047}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
+  m_IsTrigger: 1
+  m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &1680510050
@@ -5743,7 +5744,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1680510047}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1

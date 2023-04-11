@@ -56,14 +56,15 @@ public class TreeGenerator : MonoBehaviour
         Vector3 point = new Vector3(transform.position.x + randomX, transform.position.y + verticalOffset, transform.position.z + randomZ);
 
         // Project the point onto the plane by doing a raycast
-        Vector3 projectedPoint;
+        Vector3 projectedPoint = point;
         RaycastHit hit;
         if (Physics.Raycast(point, Vector3.down, out hit, Mathf.Infinity))
         {
-            projectedPoint = hit.point;
-        } else
-        {
-            projectedPoint = point;
+            if (hit.collider.gameObject != sledArea)
+            {
+                projectedPoint = hit.point;
+
+            }
         }
 
         return projectedPoint;
