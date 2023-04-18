@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Turning : MonoBehaviour
 {
-    [SerializeField] Transform leftHand;
-    [SerializeField] Transform rightHand;
+    [SerializeField] Transform leftHand;    // attach LeftHandControllerAnchor
+    [SerializeField] Transform rightHand;   // attach RightHandControllerAnchor
     bool turnLeft;
     bool turnRight;
 
@@ -21,20 +21,23 @@ public class Turning : MonoBehaviour
     {
         Vector3 leftPosition = leftHand.position;
         Vector3 rightPosition = rightHand.position;
-
-        // if the left hand is higher by 0.09 units, turn right
+        
+        // note: if sticking with this movement plan, change to ~0.06 units
+        // if the left hand is higher by 0.09 units, report wanting to turn right
         if (leftPosition.y - rightPosition.y > 0.09)
         {
             turnLeft = false;
             turnRight = true;
             Debug.Log("RIGHT " + turnRight);
         }
+        // if the right hand is higher by 0.09 units, report wanting to turn left
         else if (rightPosition.y - leftPosition.y > 0.09)
         {
             turnRight = false;
             turnLeft = true;
             Debug.Log("LEFT " + turnLeft);
         }
+        // don't report turning
         else 
         {
             turnLeft = false;
