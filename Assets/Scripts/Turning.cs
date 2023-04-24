@@ -6,14 +6,15 @@ public class Turning : MonoBehaviour
 {
     [SerializeField] Transform leftHand;    // attach LeftHandControllerAnchor
     [SerializeField] Transform rightHand;   // attach RightHandControllerAnchor
-    bool turnLeft;
-    bool turnRight;
+
+    Rigidbody body;
+    float angular_velocity;
 
     // Start is called before the first frame update
     void Start()
     {
-        turnLeft = false;
-        turnRight = false;
+        body = GetComponent<Rigidbody>();
+        angular_velocity = 0.0f;
     }
 
     // Update is called once per frame
@@ -21,28 +22,24 @@ public class Turning : MonoBehaviour
     {
         Vector3 leftPosition = leftHand.position;
         Vector3 rightPosition = rightHand.position;
-        
-        // note: if sticking with this movement plan, change to ~0.06 units
-        // if the left hand is higher by 0.09 units, report wanting to turn right
-        if (leftPosition.y - rightPosition.y > 0.09)
+
+        bool turnLeft = rightPosition.y - leftPosition.y > 0.09;
+        bool turnRight = leftPosition.y - rightPosition.y > 0.09;
+
+        angular_velocity = 0.0f;
+        if (turnLeft && transform.rotation.eulerAngles.y > -45.0)
         {
-            turnLeft = false;
-            turnRight = true;
-            Debug.Log("RIGHT " + turnRight);
+            angular_velocity -= 5.0f;
         }
-        // if the right hand is higher by 0.09 units, report wanting to turn left
-        else if (rightPosition.y - leftPosition.y > 0.09)
+        if (turnRight && transform.rotation.eulerAngles.y < 45.0)
         {
-            turnRight = false;
-            turnLeft = true;
-            Debug.Log("LEFT " + turnLeft);
+            angular_velocity += 5.0f;
         }
-        // don't report turning
-        else 
-        {
-            turnLeft = false;
-            turnRight = false;
-            Debug.Log("NEITHER " + turnLeft + " " + turnRight);
-        }
+    }
+
+    void FixedUpdate()
+    {
+        Quaternion delta_rotation = Quaternion.Euler(0.0f, angular_velocity * Time.fixedDeltaTime, 0.0f);
+        body.MoveRotation(body.rotation * delta_rotation);
     }
 }
