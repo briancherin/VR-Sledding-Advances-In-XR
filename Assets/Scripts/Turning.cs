@@ -26,14 +26,26 @@ public class Turning : MonoBehaviour
         bool turnLeft = rightPosition.y - leftPosition.y > 0.09;
         bool turnRight = leftPosition.y - rightPosition.y > 0.09;
 
+        Debug.Log("Turnright: " + turnRight + ", " + (leftPosition.y - rightPosition.y));
+
         angular_velocity = 0.0f;
         if (turnLeft && transform.rotation.eulerAngles.y > -45.0)
         {
-            angular_velocity -= 5.0f;
+            //angular_velocity -= 5.0f;
+            gameObject.GetComponent<Rigidbody>().AddForce(Vector3.left*10);
+            Debug.Log("Turning left");
         }
-        if (turnRight && transform.rotation.eulerAngles.y < 45.0)
+        if (turnRight/* && transform.rotation.eulerAngles.y < 45.0*/)
         {
-            angular_velocity += 5.0f;
+            //angular_velocity += 5.0f;
+            gameObject.GetComponent<Rigidbody>().AddForce(Vector3.right*10);
+            Debug.Log("Turning right");
+
+        }
+
+        if (transform.position.z > 200)
+        {
+            transform.position = new Vector3(0, 27.473f, -88.491f);
         }
     }
 
