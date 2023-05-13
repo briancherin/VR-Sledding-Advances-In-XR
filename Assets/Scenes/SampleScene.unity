@@ -8791,6 +8791,7 @@ MonoBehaviour:
   gameOverCanvas: {fileID: 571064812}
   score: 0
   scoreText: {fileID: 482512102}
+  highScoreText: {fileID: 863375029}
   gameRunningCountText: {fileID: 2121264343}
   finishText: {fileID: 499483956}
 --- !u!4 &606443017

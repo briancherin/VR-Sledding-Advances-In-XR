@@ -19,7 +19,10 @@ public class GameManager : MonoBehaviour
     public GameObject gameOverCanvas;
 
     public int score = 0;
+    private int highScore = 0;
+
     public GameObject scoreText;
+    public GameObject highScoreText;
     public GameObject gameRunningCountText; // Score indicator while game is running
     public GameObject finishText; // Text that shows up when game ends
 
@@ -69,6 +72,13 @@ public class GameManager : MonoBehaviour
 
         // Set score
         scoreText.GetComponent<TextMeshProUGUI>().text = score.ToString();
+
+        if (score > highScore)
+        {
+            highScore = score;
+        }
+
+        highScoreText.GetComponent<TextMeshProUGUI>().text = highScore.ToString();
 
         // Hide in game score text
         gameRunningCountText.SetActive(false);
