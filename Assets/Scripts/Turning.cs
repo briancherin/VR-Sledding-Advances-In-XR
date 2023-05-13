@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class Turning : MonoBehaviour
 {
-    [SerializeField] Transform leftHand;
-    [SerializeField] Transform rightHand;
-    bool turnLeft;
-    bool turnRight;
+    [SerializeField] Transform leftHand;    // attach LeftHandControllerAnchor
+    [SerializeField] Transform rightHand;   // attach RightHandControllerAnchor
+
+    Rigidbody body;
+    float angular_velocity;
 
     // Start is called before the first frame update
     void Start()
     {
-        turnLeft = false;
-        turnRight = false;
+        body = GetComponent<Rigidbody>();
+        angular_velocity = 0.0f;
     }
 
     // Update is called once per frame
@@ -22,24 +23,35 @@ public class Turning : MonoBehaviour
         Vector3 leftPosition = leftHand.position;
         Vector3 rightPosition = rightHand.position;
 
-        // if the left hand is higher by 0.09 units, turn right
-        if (leftPosition.y - rightPosition.y > 0.09)
+        bool turnLeft = rightPosition.y - leftPosition.y > 0.09;
+        bool turnRight = leftPosition.y - rightPosition.y > 0.09;
+
+        Debug.Log("Turnright: " + turnRight + ", " + (leftPosition.y - rightPosition.y));
+
+        angular_velocity = 0.0f;
+        if (turnLeft && transform.rotation.eulerAngles.y > -45.0)
         {
-            turnLeft = false;
-            turnRight = true;
-            Debug.Log("RIGHT " + turnRight);
+            //angular_velocity -= 5.0f;
+            gameObject.GetComponent<Rigidbody>().AddForce(Vector3.left*4);
+            Debug.Log("Turning left");
         }
-        else if (rightPosition.y - leftPosition.y > 0.09)
+        if (turnRight/* && transform.rotation.eulerAngles.y < 45.0*/)
         {
-            turnRight = false;
-            turnLeft = true;
-            Debug.Log("LEFT " + turnLeft);
+            //angular_velocity += 5.0f;
+            gameObject.GetComponent<Rigidbody>().AddForce(Vector3.right*4);
+            Debug.Log("Turning right");
+
         }
-        else 
+
+        if (transform.position.z > 200)
         {
-            turnLeft = false;
-            turnRight = false;
-            Debug.Log("NEITHER " + turnLeft + " " + turnRight);
+            transform.position = new Vector3(0, 27.473f, -88.491f);
         }
+    }
+
+    void FixedUpdate()
+    {
+        Quaternion delta_rotation = Quaternion.Euler(0.0f, angular_velocity * Time.fixedDeltaTime, 0.0f);
+        body.MoveRotation(body.rotation * delta_rotation);
     }
 }

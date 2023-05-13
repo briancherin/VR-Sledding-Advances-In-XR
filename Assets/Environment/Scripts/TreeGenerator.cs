@@ -32,11 +32,17 @@ public class TreeGenerator : MonoBehaviour
             // Get a random position on the plane
             Vector3 position = GetRandomTreePosition();
 
-            // Pick a random tree
-            int r = Random.Range(0, treePrefabs.Length);
-            GameObject treePrefab = treePrefabs[r];
+            if (position != Vector3.zero)
+            {
+                // Pick a random tree
+                // int r = Random.Range(0, treePrefabs.Length);
+                int r = 3;
+                GameObject treePrefab = treePrefabs[r];
 
-            Instantiate(treePrefab, position, Quaternion.identity);
+                Instantiate(treePrefab, position, Quaternion.identity);
+
+            }
+
         }
     }
 
@@ -56,15 +62,15 @@ public class TreeGenerator : MonoBehaviour
         Vector3 point = new Vector3(transform.position.x + randomX, transform.position.y + verticalOffset, transform.position.z + randomZ);
 
         // Project the point onto the plane by doing a raycast
-        Vector3 projectedPoint = point;
+        Vector3 projectedPoint = Vector3.zero;
         RaycastHit hit;
         if (Physics.Raycast(point, Vector3.down, out hit, Mathf.Infinity))
         {
             if (hit.collider.gameObject != sledArea)
             {
                 projectedPoint = hit.point;
-
             }
+
         }
 
         return projectedPoint;
