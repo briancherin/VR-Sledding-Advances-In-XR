@@ -8,10 +8,12 @@ public class PlayerController : MonoBehaviour
 {
 
     public GameObject countText;
-    public GameObject winTextObject;
+
+    public GameManager gameManager;
+
+   // public GameObject winTextObject;
 
     private Rigidbody rb;
-    private static int count = 0;
 
     // At the start of the game..
     void Start()
@@ -21,7 +23,7 @@ public class PlayerController : MonoBehaviour
         SetCountText();
 
         // Set the text property of the Win Text UI to an empty string, making the 'You Win' (game over message) blank
-        winTextObject.SetActive(false);
+   //     winTextObject.SetActive(false);
     }
 
     void OnTriggerEnter(Collider other)
@@ -33,23 +35,24 @@ public class PlayerController : MonoBehaviour
             gameObject.SetActive(false);
 
             // Add one to the score variable 'count'
-            count = count + 1;
+            gameManager.score = gameManager.score + 1;
 
-            Debug.Log("Count:" + count);
+            Debug.Log("Count:" + gameManager.score);
 
             // Run the 'SetCountText()' function (see below)
             SetCountText();
+
         }
     }
 
     void SetCountText()
     {
-        countText.GetComponent<TextMeshProUGUI>().text = "Score: " + count.ToString();
+        countText.GetComponent<TextMeshProUGUI>().text = "Score: " + gameManager.score.ToString();
 
-        if (count >= 1)
+        if (gameManager.score >= 1)
         {
             // Set the text value of your 'winText'
-            winTextObject.SetActive(true);
+           // winTextObject.SetActive(true);
 
         }
     }

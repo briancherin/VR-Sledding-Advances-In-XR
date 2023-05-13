@@ -24,8 +24,18 @@ public class SledScript : MonoBehaviour
     {
         if (other.gameObject == finishLine)
         {
-            gameManager.endGame();
+            gameManager.endGame(true);
         }
+
+        else if (other.gameObject.tag == "tree")
+        {
+            gameManager.endGame(false);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        
     }
 
 }

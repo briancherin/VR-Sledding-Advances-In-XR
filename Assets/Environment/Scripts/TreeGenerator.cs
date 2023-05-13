@@ -7,7 +7,7 @@ public class TreeGenerator : MonoBehaviour
     public GameObject[] treePrefabs; // Tree prefabs to be randomly placed
     public GameObject sledArea; // Avoid placing trees in the sled area
 
-    public int numTrees = 100;
+    public int numTrees = 80;
 
     private Vector3 environmentSize;
 
@@ -66,10 +66,10 @@ public class TreeGenerator : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(point, Vector3.down, out hit, Mathf.Infinity))
         {
-            if (hit.collider.gameObject != sledArea)
-            {
+            //if (hit.collider.gameObject != sledArea)
+        //    {
                 projectedPoint = hit.point;
-            }
+            //}
 
         }
 

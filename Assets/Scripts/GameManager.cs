@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -17,12 +18,19 @@ public class GameManager : MonoBehaviour
     public GameObject startMenuCanvas;
     public GameObject gameOverCanvas;
 
+    public int score = 0;
+    public GameObject scoreText;
+    public GameObject gameRunningCountText; // Score indicator while game is running
+    public GameObject finishText; // Text that shows up when game ends
+
     private Vector3 sledStartPosition;
 
 
     void Start()
     {
         sledStartPosition = sled.transform.position;
+
+        gameRunningCountText.SetActive(false);
     }
 
     // Update is called once per frame
@@ -41,12 +49,15 @@ public class GameManager : MonoBehaviour
         // Turn gravity on for sled
         sled.GetComponent<Rigidbody>().useGravity = true;
         startMenuCanvas.SetActive(false);
+        gameRunningCountText.SetActive(true);
+
+        score = 0;
 
         gameStarted = true;
         gameState = STATE_STARTED;
     }
 
-    public void endGame()
+    public void endGame(bool wonGame)
     {   
         // Stop all sled motion
         Rigidbody sledRigidBody = sled.GetComponent<Rigidbody>();
@@ -55,6 +66,22 @@ public class GameManager : MonoBehaviour
 
         // Move sled back to start
         sled.transform.position = sledStartPosition;
+
+        // Set score
+        scoreText.GetComponent<TextMeshProUGUI>().text = score.ToString();
+
+        // Hide in game score text
+        gameRunningCountText.SetActive(false);
+        gameRunningCountText.GetComponent<TextMeshProUGUI>().text = "Score: 0"; // Reset score text
+
+        // Set finish text
+        if (wonGame)
+        {
+            finishText.GetComponent<TextMeshProUGUI>().text = "Finished!";
+        } else
+        {
+            finishText.GetComponent<TextMeshProUGUI>().text = "You lost!";
+        }
 
         // Show game over panel
         gameOverCanvas.SetActive(true);
